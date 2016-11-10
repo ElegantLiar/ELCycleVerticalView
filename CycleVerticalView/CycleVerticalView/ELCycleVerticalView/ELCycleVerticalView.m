@@ -29,6 +29,8 @@
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
+        _showTime = 3;
+        _animationTime = 0.5;
         [self initUI];
     }
     return self;
@@ -69,13 +71,13 @@
     [self setViewInfo];
     if (_dataSource.count > 1) {
         [self stopTimer];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(executeAnimation) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:_showTime target:self selector:@selector(executeAnimation) userInfo:nil repeats:YES];
     }
 }
 
 - (void)executeAnimation{
     [self setViewInfo];
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:_animationTime delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         _tmpMiddleView.frame = _topRect;
         _tmpBtmView.frame = _middleRect;
     }completion:^(BOOL finished){

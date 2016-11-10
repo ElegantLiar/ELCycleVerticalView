@@ -17,6 +17,8 @@
 @interface ELCycleVerticalView : UIView
 
 @property (nonatomic, strong) NSArray *dataSource;          // 数据源
+@property (nonatomic, assign) double showTime;              // 展示时间 默认3s 在设置数据源之前设置
+@property (nonatomic, assign) double animationTime;         // 动画时间 默认0.5s
 @property (nonatomic, weak) id<ELCycleVerticalViewDelegate> delegate;
 
 // 开启动画 (主要用于进入其他页面返回时开启)
