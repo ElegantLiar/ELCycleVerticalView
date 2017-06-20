@@ -23,6 +23,7 @@
     ELCycleVerticalSingleView *_tmpAnimationView1;
     ELCycleVerticalSingleView *_tmpAnimationView2;
     
+    ELCycleVerticalSingleView *_tmpTopView;
     ELCycleVerticalSingleView *_tmpBtmView;
     ELCycleVerticalSingleView *_tmpMiddleView;
 }
@@ -41,11 +42,15 @@
     _topRect = CGRectMake(0, -self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
     _btmRect = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
     
+    if (_direction == ELCycleVerticalViewScrollDirectionDown) {
+        
+    }
+    
     _tmpAnimationView1 = [[ELCycleVerticalSingleView alloc] initWithFrame:_middleRect];
     _tmpAnimationView1.backgroundColor = [UIColor whiteColor];
     [self addSubview:_tmpAnimationView1];
     
-    _tmpAnimationView2 = [[ELCycleVerticalSingleView alloc] initWithFrame:_btmRect];
+    _tmpAnimationView2 = [[ELCycleVerticalSingleView alloc] initWithFrame:_direction == ELCycleVerticalViewScrollDirectionDown ? _topRect : _btmRect];
     _tmpAnimationView2.backgroundColor = [UIColor whiteColor];
     [self addSubview:_tmpAnimationView2];
     
@@ -59,6 +64,11 @@
     [_animationViewArray addObject:_tmpAnimationView1];
     [_animationViewArray addObject:_tmpAnimationView2];
     self.clipsToBounds = YES;
+}
+
+- (void)setDirection:(ELCycleVerticalViewScrollDirection)direction{
+    _direction = direction;
+    _tmpAnimationView2.frame = _direction == ELCycleVerticalViewScrollDirectionDown ? _topRect : _btmRect;
 }
 
 - (void)setDataSource:(NSArray *)dataSource{
@@ -78,33 +88,56 @@
 - (void)executeAnimation{
     [self setViewInfo];
     [UIView animateWithDuration:_animationTime delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-        _tmpMiddleView.frame = _topRect;
-        _tmpBtmView.frame = _middleRect;
-    }completion:^(BOOL finished){
-        if(finished){
-            _tmpMiddleView.frame = _btmRect;
-            _indexNow++;
+        _tmpMiddleView.frame = _direction == ELCycleVerticalViewScrollDirectionDown ? _btmRect : _topRect;
+        if (_direction == ELCycleVerticalViewScrollDirectionDown) {
+            _tmpTopView.frame = _middleRect;
+        } else {
+            _tmpBtmView.frame = _middleRect;
         }
-    }];
+    }completion:nil];
+    [self performSelector:@selector(finished)
+               withObject:nil
+               afterDelay:_animationTime];
+    
+}
+
+- (void)finished{
+    _tmpMiddleView.frame = _direction == ELCycleVerticalViewScrollDirectionDown ? _topRect : _btmRect;
+    _indexNow++;
 }
 
 - (void)setViewInfo{
-    for(ELCycleVerticalSingleView *animationView in _animationViewArray){
-        if(animationView.frame.origin.y == 0){
-            _tmpMiddleView = animationView;
-        }else if (animationView.frame.origin.y > 0){
-            _tmpBtmView = animationView;
+    if (_direction == ELCycleVerticalViewScrollDirectionDown) {
+        if (_tmpAnimationView1.frame.origin.y == 0) {
+            _tmpMiddleView = _tmpAnimationView1;
+            _tmpTopView = _tmpAnimationView2;
+        } else {
+            _tmpMiddleView = _tmpAnimationView2;
+            _tmpTopView = _tmpAnimationView1;
+        }
+    } else {
+        if (_tmpAnimationView1.frame.origin.y == 0) {
+            _tmpMiddleView = _tmpAnimationView1;
+            _tmpBtmView = _tmpAnimationView2;
+        } else {
+            _tmpMiddleView = _tmpAnimationView2;
+            _tmpBtmView = _tmpAnimationView1;
         }
     }
     _tmpMiddleView.text = _dataSource[_indexNow%(_dataSource.count)];
     if(_dataSource.count > 1){
-        _tmpBtmView.text = _dataSource[(_indexNow+1)%(_dataSource.count)];
+        if (_direction == ELCycleVerticalViewScrollDirectionDown) {
+            _tmpTopView.text = _dataSource[(_indexNow+1)%(_dataSource.count)];
+        } else {
+            _tmpBtmView.text = _dataSource[(_indexNow+1)%(_dataSource.count)];
+        }
     }
 }
 
 - (void)stopAnimation{
     [self stopTimer];
     [self.layer removeAllAnimations];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)stopTimer{
