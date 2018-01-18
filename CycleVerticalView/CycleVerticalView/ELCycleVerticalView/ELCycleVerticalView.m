@@ -7,25 +7,28 @@
 //
 
 #import "ELCycleVerticalView.h"
-#import "ELCycleVerticalSingleView.h"
 
 @implementation ELCycleVerticalView{
     CGRect          _topRect;
     CGRect          _middleRect;
     CGRect          _btmRect;
     NSInteger       _indexNow;
+    
+    double          _showTime;
+    double          _animationTime;
+    ELCycleVerticalViewScrollDirection  _direction;
 
     UIButton        *_button;
     
     NSMutableArray  *_animationViewArray;
     NSTimer         *_timer;
     
-    ELCycleVerticalSingleView *_tmpAnimationView1;
-    ELCycleVerticalSingleView *_tmpAnimationView2;
+    UILabel *_tmpAnimationView1;
+    UILabel *_tmpAnimationView2;
     
-    ELCycleVerticalSingleView *_tmpTopView;
-    ELCycleVerticalSingleView *_tmpBtmView;
-    ELCycleVerticalSingleView *_tmpMiddleView;
+    UILabel *_tmpTopView;
+    UILabel *_tmpBtmView;
+    UILabel *_tmpMiddleView;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -42,15 +45,11 @@
     _topRect = CGRectMake(0, -self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
     _btmRect = CGRectMake(0, self.bounds.size.height, self.bounds.size.width, self.bounds.size.height);
     
-    if (_direction == ELCycleVerticalViewScrollDirectionDown) {
-        
-    }
-    
-    _tmpAnimationView1 = [[ELCycleVerticalSingleView alloc] initWithFrame:_middleRect];
+    _tmpAnimationView1 = [[UILabel alloc] initWithFrame:_middleRect];
     _tmpAnimationView1.backgroundColor = [UIColor whiteColor];
     [self addSubview:_tmpAnimationView1];
     
-    _tmpAnimationView2 = [[ELCycleVerticalSingleView alloc] initWithFrame:_direction == ELCycleVerticalViewScrollDirectionDown ? _topRect : _btmRect];
+    _tmpAnimationView2 = [[UILabel alloc] init];
     _tmpAnimationView2.backgroundColor = [UIColor whiteColor];
     [self addSubview:_tmpAnimationView2];
     
@@ -64,6 +63,22 @@
     [_animationViewArray addObject:_tmpAnimationView1];
     [_animationViewArray addObject:_tmpAnimationView2];
     self.clipsToBounds = YES;
+}
+
+- (void)configureShowTime:(double)showTime
+            animationTime:(double)animationTime
+                direction:(ELCycleVerticalViewScrollDirection)direction
+          backgroundColor:(UIColor *)backgroundColor
+                textColor:(UIColor *)textColor font:(UIFont *)font
+            textAlignment:(NSTextAlignment)textAlignment{
+    _showTime = showTime;
+    _animationTime = animationTime;
+    _direction = direction;
+    _tmpAnimationView1.backgroundColor = _tmpAnimationView2.backgroundColor = backgroundColor;
+    _tmpAnimationView1.textColor = _tmpAnimationView2.textColor = textColor;
+    _tmpAnimationView1.font = _tmpAnimationView2.font = font;
+    _tmpAnimationView1.textAlignment = _tmpAnimationView2.textAlignment = textAlignment;
+    _tmpAnimationView2.frame = _direction == ELCycleVerticalViewScrollDirectionDown ? _topRect : _btmRect;
 }
 
 - (void)setDirection:(ELCycleVerticalViewScrollDirection)direction{

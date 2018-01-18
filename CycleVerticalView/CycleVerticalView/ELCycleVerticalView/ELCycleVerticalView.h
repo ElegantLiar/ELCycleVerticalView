@@ -21,10 +21,26 @@ typedef NS_ENUM(NSInteger, ELCycleVerticalViewScrollDirection) {
 @interface ELCycleVerticalView : UIView
 
 @property (nonatomic, strong) NSArray *dataSource;                              // 数据源
-@property (nonatomic, assign) double showTime;                                  // 展示时间 默认3s 在设置数据源之前设置
-@property (nonatomic, assign) double animationTime;                             // 动画时间 默认0.5s
-@property (nonatomic, assign) ELCycleVerticalViewScrollDirection  direction;    // 滚动方向 默认为往上滚动
 @property (nonatomic, weak) id<ELCycleVerticalViewDelegate> delegate;
+
+/**
+ 设置DataSource之前调用
+ 
+ @param showTime 展示时间
+ @param animationTime 动画时间
+ @param direction 方向
+ @param backgroundColor 背景颜色
+ @param textColor 字体颜色
+ @param font 字体
+ @param textAlignment 对齐
+ */
+- (void)configureShowTime:(double)showTime
+            animationTime:(double)animationTime
+                direction:(ELCycleVerticalViewScrollDirection)direction
+          backgroundColor:(UIColor *)backgroundColor
+                textColor:(UIColor *)textColor
+                     font:(UIFont *)font
+            textAlignment:(NSTextAlignment)textAlignment;
 
 // 开启动画 (主要用于进入其他页面返回时开启)
 - (void)startAnimation;

@@ -16,7 +16,6 @@
 		7AF0E4A41DC890E800BFE4A8 /* CycleVerticalViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0E4A31DC890E800BFE4A8 /* CycleVerticalViewTests.m */; };
 		7AF0E4AF1DC890E800BFE4A8 /* CycleVerticalViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0E4AE1DC890E800BFE4A8 /* CycleVerticalViewUITests.m */; };
 		7AF0E4C21DC892B000BFE4A8 /* ELCycleVerticalView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0E4C11DC892B000BFE4A8 /* ELCycleVerticalView.m */; };
-		7AF0E4C51DC8949F00BFE4A8 /* ELCycleVerticalSingleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF0E4C41DC8949F00BFE4A8 /* ELCycleVerticalSingleView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +54,6 @@
 		7AF0E4B01DC890E800BFE4A8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7AF0E4C01DC892B000BFE4A8 /* ELCycleVerticalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCycleVerticalView.h; sourceTree = "<group>"; };
 		7AF0E4C11DC892B000BFE4A8 /* ELCycleVerticalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCycleVerticalView.m; sourceTree = "<group>"; };
-		7AF0E4C31DC8949F00BFE4A8 /* ELCycleVerticalSingleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCycleVerticalSingleView.h; sourceTree = "<group>"; };
-		7AF0E4C41DC8949F00BFE4A8 /* ELCycleVerticalSingleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCycleVerticalSingleView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,8 +149,6 @@
 			children = (
 				7AF0E4C01DC892B000BFE4A8 /* ELCycleVerticalView.h */,
 				7AF0E4C11DC892B000BFE4A8 /* ELCycleVerticalView.m */,
-				7AF0E4C31DC8949F00BFE4A8 /* ELCycleVerticalSingleView.h */,
-				7AF0E4C41DC8949F00BFE4A8 /* ELCycleVerticalSingleView.m */,
 			);
 			path = ELCycleVerticalView;
 			sourceTree = "<group>";
@@ -292,7 +287,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AF0E4C51DC8949F00BFE4A8 /* ELCycleVerticalSingleView.m in Sources */,
 				7AF0E4C21DC892B000BFE4A8 /* ELCycleVerticalView.m in Sources */,
 				7AF0E4911DC890E800BFE4A8 /* ViewController.m in Sources */,
 				7AF0E48E1DC890E800BFE4A8 /* AppDelegate.m in Sources */,
@@ -532,6 +526,7 @@
 				7AF0E4B51DC890E800BFE4A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AF0E4B61DC890E800BFE4A8 /* Build configuration list for PBXNativeTarget "CycleVerticalViewTests" */ = {
 			isa = XCConfigurationList;
@@ -540,6 +535,7 @@
 				7AF0E4B81DC890E800BFE4A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7AF0E4B91DC890E800BFE4A8 /* Build configuration list for PBXNativeTarget "CycleVerticalViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -548,6 +544,7 @@
 				7AF0E4BB1DC890E800BFE4A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -24,12 +24,16 @@
      3. 设置代理
      **/
     
+    
     ELCycleVerticalView *cycVerticalView = [[ELCycleVerticalView alloc] initWithFrame:CGRectMake(80, 200, 200, 50)];
     cycVerticalView.delegate = self;
     [self.view addSubview:cycVerticalView];
-    cycVerticalView.animationTime = 0.9;
-    cycVerticalView.showTime = 1.5;
-    cycVerticalView.direction = ELCycleVerticalViewScrollDirectionUp;
+    [cycVerticalView configureShowTime:1.5 animationTime:0.9
+                             direction:ELCycleVerticalViewScrollDirectionDown
+                       backgroundColor:[UIColor clearColor]
+                             textColor:[UIColor darkGrayColor]
+                                  font:[UIFont systemFontOfSize:25]
+                         textAlignment:NSTextAlignmentCenter];
     cycVerticalView.dataSource = @[
                                    @"我是第1条",
                                    @"我是第2条",
